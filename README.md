@@ -10,9 +10,6 @@
 
 ---
 
-## 🎯 **Live Demo**
-🔗 [Deployed Application](https://your-app-link.herokuapp.com) *(agar deploy qilgan bo'lsangiz)*
-
 ---
 
 ## 📋 **Table of Contents**
@@ -87,15 +84,15 @@
 ## 🛠️ **Technology Stack**
 
 ### **Backend**
-🐍 Python 3.8+ - Core language
-🌶️ Flask 2.3.3 - Web framework
-🔐 Cryptography - AES-256 encryption
-🗄️ SQLite3 - Lightweight database
+-🐍 Python 3.8+ - Core language
+-🌶️ Flask 2.3.3 - Web framework
+-🔐 Cryptography - AES-256 encryption
+-🗄️ SQLite3 - Lightweight database
 
 ### **Frontend**
-🎨 HTML5/CSS3 - Responsive design
-✨ Vanilla JavaScript - No frameworks (pure JS)
-🎭 Flexbox/Grid - Modern layouts
+-🎨 HTML5/CSS3 - Responsive design
+-✨ Vanilla JavaScript - No frameworks (pure JS)
+-🎭 Flexbox/Grid - Modern layouts
 
 
 ---
