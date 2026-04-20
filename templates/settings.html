@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>⚙️ Settings</h2>
+
+<div style="margin-bottom: 30px;">
+    <h3>📤 Export Vault</h3>
+    <p>Download a backup of all your credentials (JSON format)</p>
+    <a href="/export" class="btn btn-success">Download Backup</a>
+</div>
+
+<div style="margin-bottom: 30px;">
+    <h3>🔐 Security</h3>
+    <p>Session is active. Vault auto-locks when you close the browser.</p>
+    <a href="/logout" class="btn btn-danger">Lock Vault Now</a>
+</div>
+
+<div>
+    <h3>💡 Pro Tips</h3>
+    <ul>
+        <li>Use tags to organize credentials by department (e.g., "marketing", "engineering")</li>
+        <li>The app detects password reuse across entries</li>
+        <li>All passwords are encrypted before storage</li>
+        <li>Regularly export backups for disaster recovery</li>
+    </ul>
+</div>
+{% endblock %}

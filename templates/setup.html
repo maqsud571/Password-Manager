@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>🎉 First Time Setup</h2>
+<p>Create your master password to secure your team's vault.</p>
+<form method="post">
+    <input type="password" name="master_password" placeholder="Master Password" required>
+    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+    <button type="submit" class="btn btn-success">Create Vault</button>
+</form>
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    let pw = document.querySelector('[name=master_password]').value;
+    let confirm = document.querySelector('[name=confirm_password]').value;
+    if (pw !== confirm) {
+        e.preventDefault();
+        alert("Passwords don't match!");
+    }
+});
+</script>
+{% endblock %}

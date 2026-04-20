@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>🔒 Vault Locked</h2>
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
+<form method="post">
+    <input type="password" name="master_password" placeholder="Enter Master Password" required>
+    <button type="submit" class="btn btn-success">Unlock Vault</button>
+</form>
+{% endblock %}

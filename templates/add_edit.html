@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{% if edit_mode %}✏️ Edit{% else %}➕ Add{% endif %} Credential</h2>
+
+{% if warning %}
+<div style="background: #fff3cd; border: 1px solid #ffc107; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+    ⚠️ {{ warning }}
+</div>
+{% endif %}
+
+{% if success %}
+<div style="background: #d4edda; border: 1px solid #28a745; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+    ✅ Credential saved successfully!
+</div>
+{% endif %}
+
+<form method="post">
+    <label>Service/Platform Name *</label>
+    <input type="text" name="service" value="{{ credential.service if credential else '' }}" required>
+    
+    <label>URL</label>
+    <input type="url" name="url" value="{{ credential.url if credential else '' }}" placeholder="https://example.com">
+    
+    <label>Username *</label>
+    <input type="text" name="username" value="{{ credential.username if credential else '' }}" required>
+    
+    <label>Password *</label>
+    <div style="display: flex; gap: 10px;">
+        <input type="text" name="password" id="password" value="{{ credential.password if credential else '' }}" required style="flex: 1;">
+        <button type="button" class="btn" onclick="openGenerator()">🔑 Generate</button>
+    </div>
+    
+    <label>Notes</label>
+    <textarea name="notes" rows="3">{{ credential.notes if credential else '' }}</textarea>
+    
+    <label>Tags (comma-separated, e.g., production, aws, finance)</label>
+    <input type="text" name="tags" value="{{ credential.tags if credential else '' }}" placeholder="dev, prod, database">
+    
+    <div style="margin-top: 20px;">
+        <button type="submit" class="btn btn-success">💾 Save</button>
+        <a href="/vault" class="btn">Cancel</a>
+    </div>
+</form>
+
+<div id="generatorModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 30px rgba(0,0,0,0.3); z-index: 1000;">
+    <h3>Password Generator</h3>
+    <label>Length: <input type="number" id="pwLength" value="12" min="4" max="64"></label><br>
+    <label><input type="checkbox" id="useUpper" checked> Uppercase</label><br>
+    <label><input type="checkbox" id="useLower" checked> Lowercase</label><br>
+    <label><input type="checkbox" id="useDigits" checked> Numbers</label><br>
+    <label><input type="checkbox" id="useSymbols" checked> Symbols</label><br>
+    <button class="btn" onclick="generateNewPassword()">Generate</button>
+    <div id="generatedPassword" style="margin: 15px 0; padding: 10px; background: #f0f0f0; border-radius: 5px;"></div>
+    <div id="strengthIndicator"></div>
+    <button class="btn btn-success" onclick="usePassword()">Use This Password</button>
+    <button class="btn" onclick="closeGenerator()">Cancel</button>
+</div>
+
+<script>
+function openGenerator() {
+    document.getElementById('generatorModal').style.display = 'block';
+    generateNewPassword();
+}
+
+function closeGenerator() {
+    document.getElementById('generatorModal').style.display = 'none';
+}
+
+async function generateNewPassword() {
+    const length = document.getElementById('pwLength').value;
+    const useUpper = document.getElementById('useUpper').checked;
+    const useLower = document.getElementById('useLower').checked;
+    const useDigits = document.getElementById('useDigits').checked;
+    const useSymbols = document.getElementById('useSymbols').checked;
+    
+    const response = await fetch('/generate-password', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({length, use_upper: useUpper, use_lower: useLower, use_digits: useDigits, use_symbols: useSymbols})
+    });
+    const data = await response.json();
+    
+    document.getElementById('generatedPassword').innerHTML = `<strong>${data.password}</strong>`;
+    const strengthClass = data.strength === 'weak' ? 'strength-weak' : (data.strength === 'fair' ? 'strength-fair' : 'strength-strong');
+    document.getElementById('strengthIndicator').innerHTML = `<span class="${strengthClass}">Strength: ${data.strength.toUpperCase()}</span>`;
+    
+    window.generatedPasswordValue = data.password;
+}
+
+function usePassword() {
+    document.getElementById('password').value = window.generatedPasswordValue;
+    closeGenerator();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>📁 Credentials Vault</h2>
+<div class="search-box">
+    <input type="text" id="searchInput" placeholder="🔍 Search by service, username, or tags..." onkeyup="filterCredentials()">
+</div>
+<div id="credentialsList">
+    {% if credentials %}
+        {% for cred in credentials %}
+        <div class="credential-card" data-service="{{ cred.service|lower }}" data-username="{{ cred.username|lower }}" data-tags="{{ cred.tags|lower }}">
+            <h3>{{ cred.service }}</h3>
+            {% if cred.url %}
+                <p>🔗 <a href="{{ cred.url }}" target="_blank">{{ cred.url }}</a></p>
+            {% endif %}
+            <p>👤 Username: <span id="username-{{ cred.id }}">{{ cred.username }}</span>
+                <button onclick="copyToClipboard('{{ cred.username }}')" class="btn" style="padding: 5px 10px; font-size: 12px;">Copy</button>
+            </p>
+            <p>🔒 Password: 
+                <span id="password-{{ cred.id }}">••••••••</span>
+                <button onclick="togglePassword({{ cred.id }}, '{{ cred.password }}')" class="btn" style="padding: 5px 10px; font-size: 12px;">👁️ Show</button>
+                <button onclick="copyToClipboard('{{ cred.password }}')" class="btn" style="padding: 5px 10px; font-size: 12px;">Copy</button>
+            </p>
+            {% if cred.notes %}
+                <p>📝 Notes: {{ cred.notes }}</p>
+            {% endif %}
+            {% if cred.tags %}
+                <p>🏷️ Tags: 
+                    {% for tag in cred.tags.split(',') %}
+                        <span class="tag">{{ tag.strip() }}</span>
+                    {% endfor %}
+                </p>
+            {% endif %}
+            <div style="margin-top: 10px;">
+                <a href="/edit/{{ cred.id }}" class="btn" style="padding: 5px 10px; font-size: 12px;">✏️ Edit</a>
+                <a href="/delete/{{ cred.id }}" class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;" onclick="return confirm('Delete this credential?')">🗑️ Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div style="text-align: center; padding: 50px;">
+            <p>🔐 No credentials yet. Click "Add New" to get started!</p>
+            <a href="/add" class="btn btn-success">➕ Add Your First Credential</a>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+    alert('Copied to clipboard!');
+}
+
+function togglePassword(id, password) {
+    const span = document.getElementById(`password-${id}`);
+    if (span.textContent === '••••••••') {
+        span.textContent = password;
+    } else {
+        span.textContent = '••••••••';
+    }
+}
+
+function filterCredentials() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.credential-card');
+    
+    cards.forEach(card => {
+        const service = card.getAttribute('data-service');
+        const username = card.getAttribute('data-username');
+        const tags = card.getAttribute('data-tags');
+        
+        if (service.includes(searchTerm) || username.includes(searchTerm) || tags.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+{% endblock %}
