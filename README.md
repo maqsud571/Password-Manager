@@ -84,12 +84,14 @@
 ## 🛠️ **Technology Stack**
 
 ### **Backend**
+
 -🐍 Python 3.8+ - Core language
 -🌶️ Flask 2.3.3 - Web framework
 -🔐 Cryptography - AES-256 encryption
 -🗄️ SQLite3 - Lightweight database
 
 ### **Frontend**
+
 -🎨 HTML5/CSS3 - Responsive design
 -✨ Vanilla JavaScript - No frameworks (pure JS)
 -🎭 Flexbox/Grid - Modern layouts
@@ -104,23 +106,23 @@
 - pip package manager
 - Git (optional)
 
-# 🧭 To‘liq Ketma-ketlik (Detailed Setup)
+# 🧭 Full sequence (Detailed Setup)
 
-### 1️⃣ Repositoryni klon qiling
+### 1️⃣ Cloning a repository
 
 ```bash
 git clone https://github.com/maqsud571/Password-Manager.git
 cd Password-Manager
 ```
-### 1️⃣ Muhitni yaratib olish
+### 1️⃣ Creating an environment
 ```
 pip install -r requirements.txt
 ```
-### 2️⃣ Loyihani ishga tushirish
+### 2️⃣ Run the project
 ```
 python app.py
 ```
-### 3️⃣ Mahalliy URL'lar
+### 3️⃣ Local URLs
 ```
 http://localhost:5000
 ```
