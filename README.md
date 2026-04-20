@@ -87,3 +87,40 @@
 ## 🛠️ **Technology Stack**
 
 ### **Backend**
+🐍 Python 3.8+ - Core language
+🌶️ Flask 2.3.3 - Web framework
+🔐 Cryptography - AES-256 encryption
+🗄️ SQLite3 - Lightweight database
+
+### **Frontend**
+🎨 HTML5/CSS3 - Responsive design
+✨ Vanilla JavaScript - No frameworks (pure JS)
+🎭 Flexbox/Grid - Modern layouts
+
+
+---
+
+## 💻 **Installation**
+
+### **Prerequisites**
+- Python 3.8 or higher
+- pip package manager
+- Git (optional)
+
+### **Step-by-Step Setup**
+
+#### 1️⃣ **Clone the repository**
+```bash
+git clone https://github.com/yourusername/team-password-manager.git
+cd team-password-manager
+
+2️⃣ Create virtual environment
+
+python -m venv venv
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+python app.py
+
+http://localhost:5000
