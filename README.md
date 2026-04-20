@@ -107,20 +107,23 @@
 - pip package manager
 - Git (optional)
 
-### **Step-by-Step Setup**
+# 🧭 To‘liq Ketma-ketlik (Detailed Setup)
 
-#### 1️⃣ **Clone the repository**
+### 1️⃣ Repositoryni klon qiling
+
 ```bash
-git clone https://github.com/yourusername/team-password-manager.git
-cd team-password-manager
-
-2️⃣ Create virtual environment
-
-python -m venv venv
-venv\Scripts\activate
-
+git clone https://github.com/maqsud571/Password-Manager.git
+cd Password-Manager
+```
+### 1️⃣ Muhitni yaratib olish
+```
 pip install -r requirements.txt
-
+```
+### 2️⃣ Loyihani ishga tushirish
+```
 python app.py
-
+```
+### 3️⃣ Mahalliy URL'lar
+```
 http://localhost:5000
+```
